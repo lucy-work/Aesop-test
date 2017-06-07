@@ -1,0 +1,21 @@
+{
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server sample-site -p 8303",
+    "test": "wdio"
+  },
+  "author": "Lucy",
+  "dependencies": {
+    "gh-pages": "^0.11.0",
+    "http-server": "^0.9.0"
+  },
+  "devDependencies": {
+    "chai": "^4.0.0",
+    "selenium-standalone": "^5.11.2",
+    "wdio-dot-reporter": "0.0.8",
+    "wdio-firefox-profile-service": "0.0.3",
+    "wdio-mocha-framework": "^0.5.10",
+    "wdio-selenium-standalone-service": "0.0.7",
+    "webdriverio": "^4.8.0"
+  }
+}
