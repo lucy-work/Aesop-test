@@ -59,7 +59,7 @@ exports.config = {
     //
     // Set a base URL in order to shorten url command calls. If your url parameter starts
     // with "/", then the base url gets prepended.
-    baseUrl: 'https://www.aesop.com/us/',
+    baseUrl: 'http://release.int.aesop-web-ui.on.work.co/skin/personal-care/amazing-care-for-oily-skin/?sku=0002&sku=0009&sku=0094',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
