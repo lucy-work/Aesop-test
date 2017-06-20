@@ -134,20 +134,44 @@ describe("Complete the payment. Happy pass: ", function(){
     browser.frame("braintree-hosted-field-number");
     checkout.cardNumber.click();
     checkout.cardNumber.setValue('4111111111111111');
+    browser.frameParent();
+    browser.frame("braintree-hosted-field-expirationDate");
+    checkout.expiration.click();
     checkout.expiration.setValue('1221');
+    browser.frameParent();
+    browser.frame("braintree-hosted-field-cvv");
     checkout.cvv.setValue('333');
+    browser.frameParent();
     billAdrSelected = checkout.billingAdressCheckbox.isSelected();
     expect(billAdrSelected, "Billing Address checkbox is not selected").to.be.true;
   })
 
-  // it("user submit the checkout form", function(){
-  //   checkout.checkoutSubmit.click();
-  //   browser.pause(1500);
-  //   var complementaryVisable = checkout.complimentary.isVisible();
-  //   expect(complementaryVisable, "complementary section is not on the view").to.be.true;
-  // })
+  it("user submit the checkout form", function(){
+    checkout.checkoutSubmit.click();
+    browser.pause(3500);
+    var complementaryVisable = checkout.complimentary.isVisible();
+    expect(complementaryVisable, "complementary section is not on the view").to.be.true;
+    var premierSamplesSelected = checkout.premierSamples.isSelected();
+    expect(premierSamplesSelected, "the checkbox SAMPLES is not selected by default").to.be.true;
+  })
 
+  it("user selects the checkbox for A_Different_Sample_Set", function(){
+    checkout.differentSamples.click();
+    var differentSamplesSelected = checkout.differentSamples.isSelected();
+    expect(differentSamplesSelected, "checkbox is unselected").to.be.true;
+  })
 
+  it("user goes to review order", function(){
+    checkout.samplesSubmit.click();
+    browser.pause(3500);
+    var orderTableVisible = checkout.orderTable.isVisible();
+    expect(orderTableVisible, "cart is not visible").to.be.true;
+    checkout.acceptTerms.click();
+    checkout.completePurchase.click();
+    browser.pause(3000);
+    var titleConfirmation = browser.getTitle().toLowerCase();
+    expect(titleConfirmation, 'url doesn\'t change to confirmation').to.include('confirmation');
+  })
 
   browser.end();
 
