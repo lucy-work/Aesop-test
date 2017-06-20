@@ -16,6 +16,10 @@ var phoneNumb = ('[name="phoneNumber"]');
 var submitBut = ('[data-test-ref="CHECKOUT_SHIPPING_SUBMIT"]');
 var shipMethod = ('.CheckoutShipping-optionsWrapper');
 var expressShip = ('[value="express"]');
+var giftCheckbox = ('[data-test-ref="CHECKOUT_GIFT"]');
+var specialInstr = ('[data-test-ref="CHECKOUT_GIFT_INSTRUCTIONS_CHECKBOX"]');
+var textSpecInstr =('[data-test-ref="CHECKOUT_GIFT_INSTRUCTIONS"]');
+var shippingSubmit = ('[data-test-ref="CHECKOUT_SHIPPING_SUBMIT"]');
 
 class form {
 	get emailLable() {return $(emailLable); }
@@ -36,6 +40,10 @@ class form {
 	get submitBut() {return $(submitBut);}
 	get shipMethod() {return $(shipMethod);}
 	get expressShip() {return $(expressShip);}
+	get giftCheckbox() {return $(giftCheckbox);}
+	get specialInstr() {return $(specialInstr);}
+	get textSpecInstr() {return $(textSpecInstr);}
+	get shippingSubmit() {return $(shippingSubmit);}
 
 }
 

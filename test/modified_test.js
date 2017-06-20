@@ -1,6 +1,7 @@
 var item = require('./item.page.js');
 var cart = require('./cart.page.js');
-var form = require('./form.page.js')
+var form = require('./form.page.js');
+var checkout = require('./CheckOut.page.js');
 
 describe("Complete the payment. Happy pass: ", function(){
    browser.url('/skin/personal-care/amazing-care-for-oily-skin/?sku=0002&sku=0009&sku=0094');
@@ -62,9 +63,9 @@ describe("Complete the payment. Happy pass: ", function(){
   it("user fills out the form", function() {
     form.prefixDropdown.selectByValue('mrs');
     form.firstNameLabel.click();
-    form.firstName.setValue('Iterman');
+    form.firstName.setValue('Parker');
     form.lastNameLabel.click();
-    form.lastName.setValue('Liudmyla');
+    form.lastName.setValue('Jessica');
 
     browser.submitForm('.CheckoutCustomerForm');
     browser.pause(5000);
@@ -84,7 +85,7 @@ describe("Complete the payment. Happy pass: ", function(){
     form.country.selectByValue('US');
     form.addressLable.click();
     form.addressField.setValue("New York Avenue");
-    //form.addressField.keys('ArrowDown');
+    //browser.keys('ArrowDown');
     form.addressLable.click();
     browser.keys('\uE015');
     browser.keys('Enter');
@@ -104,11 +105,49 @@ describe("Complete the payment. Happy pass: ", function(){
   it("user selects the type of the shipping", function(){
     form.expressShip.click();
     browser.pause(3000);
-
-
-
    }) 
+
+  it("user selects gift checkbox", function(){
+    form.giftCheckbox.click();
+    var giftSelected = form.giftCheckbox.isSelected();
+    expect(giftSelected, "gift checkbox is unselected").to.be.true;
+  })
   
+  it("text field appears if user selects special instructors checkbox", function(){
+    form.specialInstr.click();
+    var specInstrSelected = form.specialInstr.isSelected();
+    expect(specInstrSelected, "special instruction checkbox is unselected").to.be.true;
+    var textSpecInstrVisable = form.textSpecInstr.isVisible();
+    expect(textSpecInstrVisable, "text field is not visible for special instruction").to.be.true;
+  })
+
+  it("user submit the shipping info", function(){
+    form.shippingSubmit.click();
+    browser.pause(3000);
+    var creditCardSelected = checkout.creditCard.isSelected();
+    expect(creditCardSelected, "credit card is not selected by default").to.be.true;
+    var cardHolderName = checkout.cardHolder.getAttribute("value");
+    expect(cardHolderName, "name doesn\'t mutch").to.include("Parker Jessica");
+  })
+
+  it("user adds credit card info", function(){
+    browser.frame("braintree-hosted-field-number");
+    checkout.cardNumber.click();
+    checkout.cardNumber.setValue('4111111111111111');
+    checkout.expiration.setValue('1221');
+    checkout.cvv.setValue('333');
+    billAdrSelected = checkout.billingAdressCheckbox.isSelected();
+    expect(billAdrSelected, "Billing Address checkbox is not selected").to.be.true;
+  })
+
+  // it("user submit the checkout form", function(){
+  //   checkout.checkoutSubmit.click();
+  //   browser.pause(1500);
+  //   var complementaryVisable = checkout.complimentary.isVisible();
+  //   expect(complementaryVisable, "complementary section is not on the view").to.be.true;
+  // })
+
+
 
   browser.end();
 
